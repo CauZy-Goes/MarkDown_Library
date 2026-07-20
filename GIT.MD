@@ -1,4 +1,4 @@
-# 🌿 Git — Comandos Essenciais
+# 🌿 Git — Comandos Essenciais 
 
 Guia de referência: do zero até navegar entre branches, voltar commits, e sobreviver à temida tela de merge do Vim.
 
