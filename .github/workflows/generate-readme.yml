@@ -39,6 +39,7 @@ jobs:
         with:
           model: openai/gpt-4.1
           prompt-file: prompt.txt
+          max-tokens: 4000
           system-prompt: |
             Você é um assistente que gera arquivos README.md para repositórios
             de documentação. Para cada arquivo .md recebido, escreva uma seção
