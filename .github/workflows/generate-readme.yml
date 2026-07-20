@@ -1,4 +1,4 @@
-name: Gerar README automaticamente
+name: Gerar README automaticamente 
 
 on:
   push:
