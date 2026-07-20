@@ -28,3 +28,6 @@ for arquivo in arquivos_md:
 
 OUTPUT_FILE.write_text("".join(partes), encoding="utf-8")
 print(f"Prompt montado com {len(arquivos_md)} arquivo(s) .md")
+print(REPO_ROOT)
+print("".join(partes))
+
