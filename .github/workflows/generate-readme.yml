@@ -1,26 +1,26 @@
-name: Atualiza README com resumo dos arquivos .md
+name: Gerar README automaticamente
 
 on:
   push:
-    branches:
-      - main
-    paths:
-      - "**.md"
-      - "!README.md"
-  workflow_dispatch:
+    branches: [main]
+    paths-ignore:
+      - "README.md"   # evita loop infinito (o próprio workflow atualiza o README)
+
+permissions:
+  contents: write   # necessário para o workflow poder commitar de volta
+  models: read       # necessário para usar o GitHub Models com o GITHUB_TOKEN
 
 concurrency:
   group: readme-update
   cancel-in-progress: true
 
 jobs:
-  build-readme:
-    # evita loop infinito: não roda se o commit foi feito pelo próprio bot
-    if: github.actor != 'github-actions[bot]'
+  generate-readme:
     runs-on: ubuntu-latest
+    if: github.actor != 'github-actions[bot]'   # segurança extra contra loop
 
     steps:
-      - name: Checkout do repositório
+      - name: Baixar o código do repositório
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
@@ -28,28 +28,35 @@ jobs:
       - name: Configurar Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
+          python-version: "3.12"
 
-      - name: Montar prompt.txt
-        run: python build_prompt.py
+      - name: Montar o prompt com o conteúdo de todos os .md
+        run: python scripts/build_prompt.py
 
-      - name: Gerar README via IA
-        env:
-          API_KEY: ${{ secrets.AI_API_KEY }}
-        run: |
-          python gerar_readme.py
+      - name: Gerar o resumo com IA (GitHub Models)
+        id: inference
+        uses: actions/ai-inference@v1
+        with:
+          model: openai/gpt-4.1
+          prompt-file: prompt.txt
+          system-prompt: |
+            Você é um assistente que gera arquivos README.md para repositórios
+            de documentação. Para cada arquivo .md recebido, escreva uma seção
+            com o nome do arquivo como título e um resumo objetivo de 2 a 4
+            frases sobre o conteúdo dele. Responda em português do Brasil,
+            com o nome do arquivo como título e um resumo objetivo contendo uma breve conceito e os
+            principais comandos da tecnologia. Responda em português do Brasil,
+            usando Markdown válido, sem explicações fora do README em si.
 
-      - name: Commit e push do README
+      - name: Escrever o README.md gerado
+        run: echo "${{ steps.inference.outputs.response }}" > README.md
+
+      - name: Commitar e enviar o README atualizado
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add README.md
-
-          if git diff --cached --quiet; then
-            echo "Nenhuma alteração no README, nada para commitar."
-            exit 0
-          fi
-
-          git commit -m "docs: atualiza README automaticamente [skip ci]"
-          git pull --rebase origin main
+          git diff --staged --quiet || git commit -m "docs: atualiza README automaticamente"
+          git fetch origin main
+          git rebase origin/main || git rebase --abort
           git push origin main
