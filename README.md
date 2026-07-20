@@ -1,29 +1,22 @@
 # README.md
 
-Este repositório contém documentação essencial para uso de Python, ambientes virtuais, gerenciamento de dependências e procedimentos eficientes para Docker + WSL no Windows. Abaixo estão os tópicos principais, conceitos breves e comandos chave de cada tecnologia que te ajudarão no dia a dia.
+Este repositório reúne documentação essencial sobre Git, Python, e a gestão de memória no Docker/WSL, trazendo os principais conceitos e comandos para uso no dia a dia. Abaixo, encontram-se as três áreas de conhecimento, com resumos objetivos e comandos-chave.
 
 ---
 
-## PYTHON.md
+## GIT.md
 
 ### Conceito
-Refere-se ao uso prático do Python: desde instalação, ambiente virtual (venv), uso do pip para pacotes, gerenciamento de requirements.txt, comandos de rotina e dicas para evitar erros comuns.
 
-### Comandos CMD Essenciais
+Git é um sistema de controle de versões, indispensável para gerenciar projetos de software, permitindo o registro do histórico, a colaboração e o uso de branches para desenvolvimento paralelo.
 
-- **Verificar instalação e versão**
-  ```bash
-  python --version
-  py --version
-  ```
-  Mostra a versão instalada do Python.
+### Comandos Chave
 
-- **Local do Python instalado**
-  ```bash
-  python -c "import sys; print(sys.executable)"
-  ```
-  Mostra caminho do executável Python atual.
+- **Inicializar/clonar repositório**
+  - `git init` — Cria um novo repositório local.
+  - `git clone <url>` — Clona um repositório remoto.
+  - `git remote add origin <url>` — Conecta repositório local a um remoto.
 
-- **Rodar scripts**
-  ```bash
-  python
+- **Fluxo básico**
+  - `git status` — Mostra as mudanças.
+  - `git add <arquivo>`
