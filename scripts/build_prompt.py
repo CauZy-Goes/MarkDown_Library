@@ -13,8 +13,8 @@ OUTPUT_FILE = Path("prompt.txt")
 IGNORAR = {"README.md"}
 
 partes = [
-    "Gere um README.md para este repositório, com uma seção para cada "
-    "arquivo abaixo, contendo o nome do arquivo e um resumo do conteúdo.\n"
+    "Gere um README.md para este repositório, esse readME sera a junção de todos os arquivos md desse repo"
+    "O readME gerado deve conter o nome do conteúdo. um breve resumo sobre e os comandos cmd chave\n"
 ]
 
 arquivos_md = sorted(
