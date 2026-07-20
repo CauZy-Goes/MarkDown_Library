@@ -2,8 +2,8 @@
 
 ## PYTHON.md
 
-O arquivo **PYTHON.md** traz um guia completo e sintético sobre comandos essenciais do Python, incluindo verificação de instalação, uso de ambientes virtuais (venv), comandos do pip, manipulação de requirements.txt, fluxo típico de projetos, dicas úteis e solução de erros comuns. Aborda também alternativas ao venv e orientações sobre  para projetos Python, focando na obtenção de ambientes limpos e isolados, especialmente para automação, scripts e CI/CD. A documentação oferece exemplos práticos tanto para Windows quanto para Linux/macOS, facilitando o uso no dia-a-dia e a colaboração em equipe.
+Este arquivo apresenta um guia prático de comandos essenciais do Python, abrangendo desde a instalação, uso de ambientes virtuais (venv), gerenciamento de pacotes com pip, manipulação de arquivos requirements.txt até dicas para fluxo completo de projetos e resolução de erros comuns. Conceitua as ferramentas básicas do ecossistema Python e traz comandos para ativação/desativação de venv, instalação/atualização de pacotes, geração de requirements e práticas recomendadas de . Também compara alternativas modernas para gerenciamento de ambientes e dependências, como virtualenv, pipenv, poetry e conda.
 
 ## WSL_Docker.md
 
-O arquivo **WSL_Docker.md** serve como referência rápida para gerenciamento de memória e containers Docker rodando sobre WSL2 no Windows. Explica por que Docker e WSL consomem memória RAM, detalha comandos para parar containers e desligar o WSL
+Este documento explica como gerenciar recursos de memória e containers Docker integrados ao WSL2 no Windows, detalhando os motivos do elevado consumo de RAM e apresentando sequências de comandos para iniciar, parar e liberar recursos do Docker e WSL. O material inclui instruções para parar containers específicos e glob
