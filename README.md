@@ -1,23 +1,29 @@
 # README.md
 
-Este repositório reúne instruções essenciais sobre Python, gerenciamento de ambientes virtuais, pip, requirements.txt, além de comandos práticos para controle de memória e containers com Docker/WSL no Windows. Abaixo, um resumo dos arquivos de documentação disponíveis, com conceito e principais comandos para cada tecnologia.
+Este repositório contém documentação essencial para uso de Python, ambientes virtuais, gerenciamento de dependências e procedimentos eficientes para Docker + WSL no Windows. Abaixo estão os tópicos principais, conceitos breves e comandos chave de cada tecnologia que te ajudarão no dia a dia.
 
 ---
 
 ## PYTHON.md
 
 ### Conceito
+Refere-se ao uso prático do Python: desde instalação, ambiente virtual (venv), uso do pip para pacotes, gerenciamento de requirements.txt, comandos de rotina e dicas para evitar erros comuns.
 
-Python é uma linguagem de programação de alto nível e multiparadigma, fácil de aprender e amplamente usada em automação, scripts, ciência de dados, back-end e integração com CI/CD. O uso de ambientes virtuais (`venv`) e gerenciador de pacotes (`pip`) permite o isolamento de dependências e instalação fácil de bibliotecas.
+### Comandos CMD Essenciais
 
-### Comandos CMD Chave
-
-- **Verificar versão do Python:**
+- **Verificar instalação e versão**
   ```bash
   python --version
+  py --version
   ```
-- **Rodar um script Python:**
+  Mostra a versão instalada do Python.
+
+- **Local do Python instalado**
   ```bash
-  python nome_do_arquivo.py
+  python -c "import sys; print(sys.executable)"
   ```
-- **Cri
+  Mostra caminho do executável Python atual.
+
+- **Rodar scripts**
+  ```bash
+  python
