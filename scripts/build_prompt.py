@@ -8,7 +8,7 @@ para ser enviado à IA gerar o README.
 
 from pathlib import Path
 
-REPO_ROOT = Path("../.")
+REPO_ROOT = Path(".")
 OUTPUT_FILE = Path("prompt.txt")
 IGNORAR = {"README.md"}
 
