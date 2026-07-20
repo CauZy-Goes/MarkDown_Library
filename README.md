@@ -1,20 +1,29 @@
 # README.md
 
+Este repositório reúne documentação essencial sobre Python (ambiente virtual, pip, requirements) e gerenciamento de memória no Docker/WSL no Windows. Confira os principais comandos para cada tecnologia.
+
+---
+
 ## PYTHON.md
 
-### Conceito
-O arquivo `PYTHON.md` reúne comandos essenciais para trabalhar com Python, desde a verificação da instalação até a criação de ambientes virtuais, gerenciamento de dependências, uso do pip, fluxo completo de projeto, resolução de erros comuns e dicas de boas práticas para projetos Python.
+### Breve conceito
 
-### Principais Comandos e O que Fazem
+Python é uma linguagem de programação versátil utilizada para automação, scripts, web, data science e muito mais. O uso de ambientes virtuais (venv), gerenciamento de pacotes com pip e arquivos de requirements.txt permite isolar e controlar as dependências de cada projeto.
 
-- **Verificando instalação**
-  - `python --version` / `py --version`: Mostra a versão instalada do Python.
-  - `python -c "import sys; print(sys.executable)"`: Exibe o caminho do executável Python.
-  - `python`: Abre o interpretador interativo.
+### Principais comandos (cmd)
 
-- **Rodando scripts**
-  - `python nome_do_arquivo.py`: Executa um script Python.
+- **Verificar a versão do Python instalada:**
+  ```bash
+  python --version
+  ```
+  Mostra a versão do Python instalada.
 
-- **Ambiente Virtual (venv)**
-  - `python -m venv venv`: Cria um ambiente virtual.
-  - `venv\
+- **Abrir o interpretador interativo:**
+  ```bash
+  python
+  ```
+  Entra no REPL interativo para executar comandos Python.
+
+- **Rodar um script Python:**
+  ```bash
+  python nome_do_arquivo.py
