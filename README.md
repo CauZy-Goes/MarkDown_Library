@@ -1,149 +1,142 @@
-# README.md
+# README
 
-Este repositório reúne documentação essencial e comandos chave para três tecnologias fundamentais do desenvolvimento moderno: Git, Python e o uso do Docker/WSL no Windows. Abaixo, você encontra o resumo de cada conteúdo, seus principais conceitos e comandos de terminal (cmd) para uso prático no dia a dia.
+## Índice
+
+- [GIT.md](#gitmd)
+- [PYTHON.md](#pythonmd)
+- [WSL_Docker.md](#wsl_dockermd)
 
 ---
 
 ## GIT.md
 
-### 🌿 Git — Controle de Versão
+### Conceito
 
-Git é o sistema de versionamento mais usado para rastrear alterações em arquivos e colaborar em projetos de software. Permite reverter mudanças, gerenciar branches e sincronizar código entre a máquina local e um servidor remoto (ex: GitHub).
+Git é um sistema de controle de versão distribuído, usado para rastrear alterações em arquivos, gerenciar branches e colaborar em projetos de software. Suporta operações como criação de repositórios, commit, merge e revert, além de facilitar colaboração com repositórios remotos.
 
-#### Comandos chave
+### Principais Comandos
 
-- Iniciar/clonar repo:
-    - `git init` — Cria um repositório local.
-    - `git clone <url>` — Clona um repo remoto para a máquina.
+| Comando | O que faz |
+|---|---|
+| `git init` | Cria um novo repositório Git no diretório atual |
+| `git clone <url>` | Clona um repositório remoto |
+| `git remote add origin <url>` | Conecta o repositório local ao remoto |
+| `git status` | Mostra o estado atual dos arquivos |
+| `git add <arquivo>` | Adiciona arquivos para o próximo commit |
+| `git commit -m "msg"` | Cria um commit com mensagem |
+| `git push` | Envia commits para o repositório remoto |
+| `git pull` | Atualiza o repositório local com mudanças do remoto |
+| `git log --oneline` | Exibe histórico compacto dos commits |
+| `git branch` | Lista branches locais |
+| `git branch -a` | Lista branches locais e remotas |
+| `git checkout -b <branch>` | Cria e troca para uma nova branch |
+| `git switch -c <branch>` | Cria e troca para uma nova branch (moderno) |
+| `git branch -d <branch>` | Deleta uma branch local (se já foi merged) |
+| `git push origin --delete <branch>` | Deleta branch remota |
+| `git merge <branch>` | Junta outra branch na atual |
+| `git reset --soft HEAD~1` | Desfaz último commit, preservando mudanças |
+| `git reset --hard HEAD~1` | Desfaz commit e apaga mudanças (perigoso) |
+| `git revert <commit>` | Cria commit que desfaz mudanças |
+| `git stash` | Guarda mudanças temporariamente |
+| `git blame <arquivo>` | Mostra quem editou cada linha de um arquivo |
 
-- Fluxo básico:
-    - `git status` — Mostra mudanças locais.
-    - `git add <arquivo>`/`git add .` — Adiciona arquivos ao staging.
-    - `git commit -m "msg"` — Grava alterações definitivas.
-    - `git push` — Envia commits ao repo remoto.
-    - `git pull` — Traz novas alterações do remoto.
+#### Comandos para sair do editor Vim após merges:
+- `Esc` → `:wq` → `Enter` — salva e sai
+- `Esc` → `:q!` → `Enter` — sai sem salvar
 
-- Branches:
-    - `git branch` — Lista branches locais.
-    - `git checkout nome-da-branch` ou `git switch nome-da-branch` — Troca de branch.
-    - `git checkout -b nome-da-branch` ou `git switch -c nome-da-branch` — Cria e entra em uma branch nova.
-    - `git branch -d nome-da-branch` — Apaga uma branch local (se já mesclada).
-    - `git push origin --delete nome-da-branch` — Apaga branch remota.
-
-- Merge:
-    - `git merge nome-da-branch` — Junta alterações de outra branch na atual.
-
-- "Desfazer" mudanças:
-    - `git restore arquivo.py` — Descarta alterações não commitadas.
-    - `git reset --soft HEAD~1` — Desfaz último commit, mas mantém alterações no staging.
-    - `git reset --hard HEAD~1` — Desfaz commit e apaga alterações.
-    - `git revert <commit>` — Cria um commit novo que desfaz alterações de um commit antigo.
-
-- Tela de merge (Vim):
-    - Para sair: `Esc`, `:wq`, `Enter`.
-    - Definir editor padrão: `git config --global core.editor "nano"` ou `"code --wait"`.
-
-- Extras:
-    - `git diff` — Vê diferenças antes do commit.
-    - `git stash` — Guarda mudanças temporárias.
-    - `git blame arquivo.py` — Mostra quem alterou cada linha.
+#### Para trocar o editor padrão:
+```bash
+git config --global core.editor "nano"
+git config --global core.editor "code --wait"
+```
 
 ---
 
 ## PYTHON.md
 
-### 🐍 Python — Automação e Desenvolvimento
+### Conceito
 
-Python é uma linguagem de programação de fácil leitura e alta produtividade, usada para scripts, automação, integração, web e análise de dados. O gerenciamento de ambientes virtuais e dependências garante projetos isolados e portáveis.
+Python é uma linguagem de programação versátil e utilizada desde scripts automação até aplicações completas. Para projetos profissionais, usa-se ambientes virtuais (venv) para isolar dependências, além do gerenciador de pacotes pip e arquivos requirements.txt.
 
-#### Comandos chave
+### Principais Comandos
 
-- Instalação/versão:
-    - `python --version` — Mostra versão instalada.
-    - `python nome_do_arquivo.py` — Executa um script Python.
+| Comando | O que faz |
+|---|---|
+| `python --version` | Mostra a versão instalada do Python |
+| `python -m venv venv` | Cria um ambiente virtual |
+| `venv\Scripts\activate` | Ativa venv no Windows |
+| `source venv/bin/activate` | Ativa venv no Linux/macOS |
+| `deactivate` | Desativa ambiente virtual |
+| `pip install <pacote>` | Instala um pacote |
+| `pip uninstall <pacote>` | Remove um pacote |
+| `pip list` | Lista pacotes instalados |
+| `pip freeze > requirements.txt` | Gera arquivo de dependências do projeto |
+| `pip install -r requirements.txt` | Instala todos pacotes listados |
+| `python nome_do_arquivo.py` | Executa um script |
+| `pip install -e .` | Instala projeto local em modo edição |
+| `python -m <modulo>` | Roda um módulo como script |
+| `where python` / `which python` | Mostra caminho do Python usado pelo terminal |
 
-- Ambiente virtual:
-    - `python -m venv venv` — Cria um ambiente virtual.
-    - `venv\Scripts\activate` (Windows) / `source venv/bin/activate` (Linux/macOS) — Ativa o ambiente.
-    - `deactivate` — Desativa o ambiente.
-    - `pip install -r requirements.txt` — Instala dependências listadas.
+#### Comandos úteis para limpar e depurar:
+- Limpar `__pycache__`:  
+  - Linux/macOS: `find . -type d -name "__pycache__" -exec rm -rf {} +`
+  - PowerShell: `Get-ChildItem -Recurse -Filter "__pycache__" | Remove-Item -Recurse -Force`
 
-- pip — Gerenciador de pacotes:
-    - `pip install nome-do-pacote` — Instala pacote.
-    - `pip uninstall nome-do-pacote` — Remove pacote.
-    - `pip list` — Lista pacotes instalados.
-    - `pip freeze > requirements.txt` — Gera arquivo de dependências.
-
-- Rodar projetos clonados:
-    - Sequência: `git clone ...` → `python -m venv venv` → ativa venv → `pip install -r requirements.txt` → `python main.py` → `deactivate`
-
-- Utilitário:
-    - `pip install -e .` — Instala projeto local em modo edição.
-    - `python -m nome_do_modulo` — Executa um módulo como script.
-
-- Limpeza:
-    - `find . -type d -name "__pycache__" -exec rm -rf {} +` — Remove cache compilado (Linux/macOS).
-    - `Get-ChildItem -Recurse -Filter "__pycache__" | Remove-Item -Recurse -Force` — (PowerShell).
-
-- Erros comuns:
-    - Ative sempre o venv antes de instalar pacotes.
-    - Use `python -m pip` se `pip` não funcionar.
-
-- `.gitignore` recomendado:
-    - Excluir `venv/`, `.venv/`, `__pycache__/`, `*.pyc`, `.env` — não versionar ambientes e arquivos gerados.
+#### Fluxo para iniciar um projeto:
+```bash
+git clone <url>
+cd <projeto>
+python -m venv venv
+venv\Scripts\activate    # ou source venv/bin/activate
+pip install -r requirements.txt
+python main.py
+deactivate
+```
 
 ---
 
 ## WSL_Docker.md
 
-### 🐳 Docker + WSL no Windows — Gerenciamento de Contêineres e Memória
+### Conceito
 
-Docker permite criar ambientes isolados para rodar aplicações. No Windows, funciona em cima do WSL2, consumindo memória mesmo parado. Saber desligar corretamente é essencial para liberar recursos.
+No Windows, Docker Desktop utiliza o WSL2 (Subsistema do Windows para Linux) para rodar containers, consumindo memória mesmo sem containers ativos. Comandos permitem parar containers, liberar RAM e religar o ambiente conforme a necessidade.
 
-#### Comandos chave
+### Principais Comandos
 
-- Containers do projeto atual:
-    - `docker compose stop` — Para containers.
-    - `docker compose ps` — Lista containers atuais.
-    - `docker compose start`/`docker compose up -d` — Religa containers.
+| Comando | O que faz |
+|---|---|
+| `docker compose stop` | Para containers do projeto atual |
+| `docker compose start` / `docker compose up -d` | Religa containers do projeto |
+| `docker stop $(docker ps -q)` | Para todos containers rodando |
+| `docker compose ps` | Exibe status dos containers do projeto |
+| `docker stats` | Mostra consumo de recursos dos containers em tempo real |
+| `docker system prune` | Remove containers/paradas, imagens não usadas, libera espaço no disco |
+| `docker system df` | Exibe consumo total de espaço em disco pelo docker |
 
-- Para containers de toda a máquina:
-    - `docker stop $(docker ps -q)` — Para todos os containers.
-    - No PowerShell: `docker stop (docker ps -q)`
+#### Comandos para controlar WSL:
+- Listar distribuições WSL:  
+  `wsl --list --verbose` ou `wsl -l -v`
+- Desligar todas distribuições:  
+  `wsl --shutdown`
+- Desligar uma distribuição específica:  
+  `wsl --terminate <distro>`
 
-- Fechar Docker Desktop:
-    - Via ícone do sistema ("Quit Docker Desktop").
+#### Reiniciando o Docker/WSL:
+```powershell
+Start-Process "C:\Program Files\Docker\Docker\Docker Desktop.exe"
+docker compose up -d
+```
 
-- Desligar o WSL (libera RAM de verdade):
-    - `wsl --list --verbose` — Lista distribuições WSL ligadas.
-    - `wsl --shutdown` — Desliga todas as distros WSL.
-    - `wsl --terminate docker-desktop` — Desliga distro específica.
+#### Sequência para liberar memória RAM:
+```powershell
+docker compose stop            # 1. Para containers
+# Quit Docker Desktop via bandeja
+wsl --shutdown                 # 2. Desliga a VM do WSL (libera RAM)
+```
 
-- Confirmar memória liberada:
-    - No Gerenciador de Tarefas, veja o processo `Vmmem/Vmmemwsl`.
-
-- Religar o ambiente:
-    - `Start-Process "C:\Program Files\Docker\Docker\Docker Desktop.exe"` — Religa Docker.
-    - `docker compose up -d` — Sobe containers.
-
-- Resumo para "desligar tudo":
-    ```powershell
-    docker compose stop      # Para containers do projeto
-    # Quit Docker Desktop via bandeja
-    wsl --shutdown           # Derruba todas as distros WSL e libera RAM
-    ```
-
-- Resumo para "voltar a usar":
-    ```powershell
-    Start-Process "C:\Program Files\Docker\Docker\Docker Desktop.exe"
-    docker compose up -d
-    ```
-
-- Extras:
-    - `docker stats` — Mostra uso de CPU/memória por container.
-    - `docker system prune` — Limpa containers/imagens não usados (libera espaço).
-    - `docker system df` — Mostra uso total de disco.
+#### Confirmar liberação:
+- Abrir Gerenciador de Tarefas e conferir processos `Vmmem` ou `Vmmemwsl`.
 
 ---
 
-Este compilado serve como referência rápida para comandos essenciais de Git, Python e Docker/WSL, facilitando seu fluxo de trabalho e gerenciamento de recursos no desenvolvimento de software.
+_Fim do resumo das tecnologias e principais comandos deste repositório._
