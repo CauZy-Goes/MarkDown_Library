@@ -15,6 +15,7 @@ IGNORAR = {"README.md"}
 partes = [
     "Gere um README.md para este repositório, esse readME sera a junção de todos os arquivos md desse repo"
     "O readME gerado deve conter o nome do conteúdo. um breve resumo sobre e os comandos cmd chave\n"
+    "quero que o markdown tenha índice/sumário navegável adicionado no topo (usando âncoras de markdown, que funcionam como atalhos para cada conteúdo)"
 ]
 
 arquivos_md = sorted(
