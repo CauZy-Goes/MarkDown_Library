@@ -1,75 +1,127 @@
-# README
+# README.md
+
+Este repositório traz guias de referência rápida para as principais tecnologias utilizadas na documentação do projeto, incluindo comandos essenciais de Alembic, Git, Python e Docker/WSL. O objetivo é facilitar a consulta e o uso das ferramentas necessárias para desenvolvimento, versionamento, gerenciamento de dependências e administração de ambientes.
+
+
 
 ## Índice
 
+- [Alembic.md](#alembicmd)
 - [GIT.md](#gitmd)
 - [PYTHON.md](#pythonmd)
-- [WSL_Docker.md](#wsl_dockermd)
+- [WSL_Docker.md](#wsldockermd)
+
+
+---
+
+## Alembic.md
+
+### Conceito
+
+Alembic é uma ferramenta de migração de banco de dados para projetos que utilizam SQLAlchemy. Permite versionar mudanças estruturais no banco (como criação/modificação de tabelas e colunas) através de arquivos de "migration" registrados no Git, garantindo a mesma estrutura entre ambientes de desenvolvimento, teste e produção.
+
+### Principais comandos/fluxo:
+
+- `alembic init alembic`: Cria a estrutura de pastas do Alembic (uma vez no projeto).
+- `alembic revision --autogenerate -m "descrição"`: Gera um arquivo de migration comparando modelos Python com o banco, sem aplicar o SQL.
+- `alembic upgrade head`: Aplica todas as migrations pendentes ao banco.
+- `alembic downgrade -1`: Desfaz a última migration aplicada.
+- `alembic current`: Mostra qual revision está aplicada no banco atualmente.
+- `alembic history`: Lista todas as migrations geradas.
+- `alembic upgrade head --sql`: Mostra o SQL gerado pelas migrations, sem executar.
+
+Estes comandos controlam a evolução do esquema do banco, garantindo histórico, reversão e rastreabilidade. O Alembic depende do SQLAlchemy — os modelos são importados no `env.py` para serem processados nas migrations.
 
 ---
 
 ## GIT.md
 
-### Resumo
+### Conceito
 
-**Git** é uma ferramenta de versionamento de código usada para rastrear alterações, colaborar em equipes e manter o histórico de projetos de software. Os principais comandos e fluxos do Git incluem:
+Git é um sistema de controle de versões distribuído, usado para rastrear mudanças em código e facilitar colaboração entre desenvolvedores. Permite criar repositórios, branches, integrar e reverter mudanças, além de controlar histórico de arquivos de projetos.
 
-- **git init**: Inicia um repositório novo.
-- **git clone \<url>**: Clona um repositório remoto.
-- **git remote add origin \<url>**: Conecta o repositório local a um remoto.
-- **git status / git add / git commit / git push / git pull**: Fluxo básico; avalia mudanças, adiciona arquivos ao staging, commit, envia e puxa do remoto.
-- **git branch / git switch / git checkout**: Gerenciamento de branches (criar, alternar, listar, renomear e excluir).
-- **git merge**: Junta o conteúdo de uma branch na atual.
-- **git reset / git revert**: Volta ou desfaz commits de diferentes maneiras.
-- **git log / git log --oneline --graph --all**: Visualiza o histórico de commits e o fluxo de branches/merges.
-- **git stash / git stash pop / git stash list**: Guarda e recupera mudanças temporariamente.
-- **git blame**: Descobre quem alterou cada linha de um arquivo.
-- **git config --global core.editor**: Configura o editor padrão do Git.
-- **git diff / git diff --staged**: Mostra diferenças antes do commit.
+### Principais comandos/fluxo:
 
-> O Git é essencial para controle de versões em projetos colaborativos. Os comandos citados acima cobrem o fluxo do dia a dia, gerenciamento de branches, undo de commits, resolução de merges e configuração de ambiente.
+- `git init`: Inicia um novo repositório.
+- `git clone url`: Clona um repositório existente.
+- `git status`: Mostra arquivos modificados e prontos (staged) para commit.
+- `git add .`/`git add arquivo`: Adiciona arquivos ao staging para commit.
+- `git commit -m "msg"`: Registra mudanças com uma mensagem.
+- `git push`: Envia commits para o repositório remoto.
+- `git pull`: Sincroniza mudanças do repositório remoto.
+- `git branch`: Lista branches locais.
+- `git checkout -b nome`: Cria e troca para uma nova branch.
+- `git merge nome`: Mescla outro branch na branch atual.
+- `git reset --soft/mixed/hard HEAD~1`: Desfaz commits (diferentes níveis de reversão).
+- `git revert commit`: Cria novo commit revertendo mudanças de um commit antigo.
+- `git stash`: Guarda mudanças não commitadas de forma temporária.
+- `git config --global core.editor nano/code --wait`: Altera o editor padrão do Git.
+- `git log`, `git diff`, `git blame`, `git remote add/set-url`, etc.: Diversos comandos para histórico, comparação, remotos.
+
+Git fornece controle total sobre o histórico de alterações, branchs, merges e reversão de mudanças.
 
 ---
 
 ## PYTHON.md
 
-### Resumo
+### Conceito
 
-**Python** é uma linguagem de programação amplamente utilizada para scripts, automação, testes, análise de dados e muito mais. O domínio dos comandos do Python e seu ecossistema permite configuração de ambientes dedicados e instalação de dependências. Comandos essenciais:
+Python é uma linguagem de programação amplamente utilizada para automação, scripts, data science e desenvolvimento web. O gerenciamento de ambiente virtual (venv) e pacotes (pip) é essencial para isolamento e controle das dependências de cada projeto.
 
-- **python --version**: Mostra a versão instalada.
-- **python nome_do_arquivo.py**: Executa scripts Python.
-- **python -m venv venv**: Cria um ambiente virtual.
-- **Activate/Deactivate**: Ativa (`venv\Scripts\Activate.ps1` ou `source venv/bin/activate`) e desativa (`deactivate`) o venv.
-- **pip install \<pacote> / pip uninstall \<pacote> / pip list / pip show**: Instala/desinstala/lista/verifica detalhes dos pacotes.
-- **pip freeze > requirements.txt / pip install -r requirements.txt**: Gera requerimentos e instala todos de uma vez.
-- **python -m pip install --upgrade pip**: Atualiza o próprio pip.
-- **pip install -e .**: Instala projeto local em modo editável.
-- **python -m \<modulo>**: Executa um módulo como script.
-- **find . -type d -name "__pycache__" -exec rm -rf {} +**: Remove cache de bytecode.
+### Principais comandos/fluxo:
 
-> O uso de ambientes virtuais (`venv`), o gerenciamento de dependências com `pip` e o controle de `requirements.txt` são vitais para projetos Python modernos, garantindo isolamento e facilidade de replicação. Também apresenta alternativas como `poetry` e `conda`, além de dicas de `.gitignore` para projetos Python.
+#### Python/venv
+
+- `python --version`: Verifica a versão instalada.
+- `python -m venv venv`: Cria um ambiente virtual isolado.
+- `venv\Scripts\activate` ou `source venv/bin/activate`: Ativa venv (Windows ou Linux/macOS).
+- `deactivate`: Desativa o ambiente virtual.
+- `where python`/`which python`: Verifica se está usando o Python do venv.
+
+#### pip
+
+- `pip install pacote`: Instala pacotes.
+- `pip install pacote==versão`: Instala versão específica.
+- `pip freeze > requirements.txt`: Gera lista de dependências instaladas.
+- `pip install -r requirements.txt`: Instala todas as dependências do projeto.
+- `pip uninstall pacote`: Remove um pacote.
+- `pip list`, `pip show pacote`, `pip list --outdated`: Consulta pacotes instalados/detalhes.
+
+#### Fluxo comum para clonar e rodar um projeto
+
+- `git clone ...`
+- `cd projeto`
+- `python -m venv venv`
+- `venv\Scripts\activate` ou `source ...`
+- `pip install -r requirements.txt`
+- `python main.py`
+- `deactivate`
+
+Python + venv + pip garantem reprodutibilidade dos ambientes e controle de dependências.
 
 ---
 
 ## WSL_Docker.md
 
-### Resumo
+### Conceito
 
-**Docker** rodando via **WSL2** no Windows consome memória do sistema por manter uma VM Linux ativa. Para controlar o uso de recursos, comandos principais:
+Docker permite a criação e gerenciamento de containers — ambientes isolados para rodar aplicações. No Windows, o Docker Desktop funciona via WSL2, que utiliza uma VM Linux (processo `Vmmem`/`Vmmemwsl`) que consome memória, mesmo com containers parados. Saber desligar o Docker e o WSL libera recursos da máquina.
 
-- **docker compose stop / start / up -d / ps**: Para/inicia/sobe containers e verifica o status.
-- **docker stop $(docker ps -q)**: Para todos os containers ativos.
-- **Quit Docker Desktop**: Fecha o app na bandeja do sistema.
-- **wsl --list --verbose / wsl --shutdown / wsl --terminate \<distribuição>**: Ver e desligar distribuições WSL — libera RAM.
-- **Start-Process "Docker Desktop.exe"**: Reinicia o Docker Desktop.
-- **docker stats**: Mostra uso de recursos de containers ativos.
-- **docker system prune**: Limpa containers/imagens/cache não usados (libera espaço em disco, não RAM).
-- **docker system df**: Verifica quanto espaço o Docker ocupa.
-- **docker compose up -d**: Religa containers de projeto.
+### Principais comandos/fluxo:
 
-> O domínio desses comandos permite ligar/desligar containers do Docker, liberar memória RAM e organizar os recursos do sistema. O desligamento completo do WSL (`wsl --shutdown`) é o ponto crucial para liberar RAM em PCs com Docker via WSL2.
+- `docker compose stop`: Para containers de um projeto, mantendo dados/volumes.
+- `docker compose ps`: Lista containers ativos no projeto.
+- `docker compose start` ou `docker compose up -d`: Religa containers do projeto.
+- `docker stop $(docker ps -q)`: Para todos containers rodando na máquina.
+- Fechar Docker Desktop na bandeja: Libera parte da memória.
+- `wsl --shutdown`: Desliga completamente o WSL2 e libera RAM.
+- `wsl --terminate nome`: Termina distribuição WSL específica.
+- `Start-Process ...`: Religa o Docker Desktop através do PowerShell.
+- `docker stats`: Monitoramento de uso de recursos dos containers.
+- `docker system prune`: Limpa containers parados, imagens não usadas, cache de build.
+
+O gerenciamento de containers e do WSL2 é fundamental para liberar recursos e otimizar o ambiente de desenvolvimento no Windows com Docker.
 
 ---
 
-> Consulte cada seção para os principais comandos, fluxos e dicas contextuais.
+**Para mais detalhes em cada tópico, consulte os arquivos individuais deste repositório!**
